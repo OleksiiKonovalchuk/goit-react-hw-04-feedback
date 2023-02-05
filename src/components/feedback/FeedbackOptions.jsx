@@ -1,19 +1,15 @@
 import React from 'react';
 import css from './feedback.module.css';
 import PropTypes from 'prop-types';
-const FeedbackOptions = ({ options, onLeaveFeedback }) => {
-  return options.map(option => {
+const FeedbackOptions = ({ options }) => {
+  return options.map(({ option, value, handler }) => {
     return (
       <button
         className={css.btn}
         type="button"
         name={option}
         key={option}
-        onClick={e => {
-          e.preventDefault();
-          const value = e.target.name;
-          return onLeaveFeedback(value);
-        }}
+        onClick={() => handler(value + 1)}
       >
         {option}
       </button>
@@ -24,6 +20,6 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 export default FeedbackOptions;
 
 FeedbackOptions.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string),
-  onLeaveFeedback: PropTypes.func,
+  options: PropTypes.array,
+  // onLeaveFeedback: PropTypes.func,
 };

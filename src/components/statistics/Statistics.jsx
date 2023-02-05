@@ -5,7 +5,6 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
   return (
     <>
       <ul className={css.list}>
-        {' '}
         <li className={css.item}>
           Good: <span className={css.span}>{good}</span>
         </li>
@@ -19,7 +18,7 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
           Total: <span className={css.span}>{total}</span>
         </li>
         <li className={css.item}>
-          Positive feedback:{' '}
+          Positive feedback:
           <span className={css.span}>{positivePercentage}%</span>
         </li>
       </ul>
