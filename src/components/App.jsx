@@ -5,15 +5,14 @@ import Statistics from './statistics/Statistics';
 import Section from './section/Section';
 import Notification from './notification/Notification';
 const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const [state, setStates] = useState({ good: 0, neutral: 0, bad: 0 });
+  const { good, neutral, bad } = state;
   const total = good + neutral + bad;
-  const states = [
-    { option: 'good', value: good, handler: setGood },
-    { option: 'neutral', value: neutral, handler: setNeutral },
-    { option: 'bad', value: bad, handler: setBad },
-  ];
+  const handleState = value => {
+    setStates(prevState => {
+      return { ...prevState, [value]: prevState[value] + 1 };
+    });
+  };
   const countPositiveFeedbackPercentage = () => {
     const result = (good / total) * 100;
     return Number(result.toFixed());
@@ -21,7 +20,10 @@ const App = () => {
   return (
     <div className={css.App}>
       <Section title="Please leave feedback">
-        <FeedbackOptions options={states} />
+        <FeedbackOptions
+          options={Object.keys(state)}
+          onLeaveFeedback={handleState}
+        />
       </Section>
       <Section title="Statistics">
         {total === 0 ? (
